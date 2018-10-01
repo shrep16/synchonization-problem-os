@@ -44,9 +44,11 @@ void *producer()
 		sem_wait(&empty);
 		sem_wait(&s);
 		add();
-		sleep(1);
+		
 		sem_post(&s);
+		sleep(1);
 		sem_post(&full);
+		sleep(1);
 	}
 }
 
@@ -58,9 +60,11 @@ void *consumer()
 		sem_wait(&full);
 		sem_wait(&s);
 		delete();
-		sleep(1);
+		
 		sem_post(&s);
+		sleep(1);
 		sem_post(&empty);
+		sleep(1);
 	}
 }
 
