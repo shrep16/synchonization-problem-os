@@ -1,5 +1,3 @@
-/* dining philosopher using semaphores */
-
 #include <stdio.h> 
 #include <pthread.h> 
 #include <semaphore.h> 
@@ -23,12 +21,12 @@ void test(int i)
     if (state[i] == HUNGRY && state[LEFT] != EATING && state[RIGHT] != EATING) 
 	{ 
         state[i] = EATING;
-        sleep(1); 
-  
-        printf("Philosopher %d takes fork %d and %d\n", i + 1, LEFT + 1, RIGHT + 1); 
         
+  
+        printf("%d philosopher takes fork %d and %d\n", i + 1, LEFT + 1, RIGHT + 1); 
+         
         sem_post(&S[i]); 
-	sleep(1);
+	sleep(1); 
     } 
 } 
   
@@ -38,16 +36,16 @@ void take_fork(int i)
   
     sem_wait(&mutex); 
     state[i] = HUNGRY; 
-    printf("Philosopher %d is Hungry\n", i + 1); 
+    printf("%d philosopher is Hungry\n", i + 1); 
   
-    sleep(1);
+    
     test(i); 
   
     sem_post(&mutex); 
-    sleep(1); 
+    sleep(1);
     sem_wait(&S[i]); 
   
-    
+     
 } 
   
  
@@ -56,9 +54,9 @@ void put_fork(int i)
   
     sem_wait(&mutex);
     state[i] = THINKING; 
-    sleep(1);
-    printf("Philosopher %d putting fork %d and %d down\n", i + 1, LEFT + 1, RIGHT+ 1); 
-    printf("Philosopher %d is thinking\n", i + 1); 
+    
+    printf("%d philosopher putting fork %d and %d down\n", i + 1, LEFT + 1, RIGHT+ 1); 
+    printf("%d philosopher is thinking after putting down the forks\n", i + 1); 
   
     test(LEFT); 
     test(RIGHT); 
@@ -73,9 +71,9 @@ void* philospher(void* num)
     while (1) { 
   
         int* i = num;
- 
+ 	printf("%d philosopher is thinking \n",(*i)+1);
         take_fork(*i);
-	printf("%d philosopher is eating \n",(*i)+1);
+	printf("%d philosopher is eating \n",(*i)+1); 
         put_fork(*i); 
     } 
 } 
@@ -95,7 +93,7 @@ int main()
     for (i = 0; i < N; i++) 
 	{ 
   		pthread_create(&thread_id[i], NULL, philospher, &pNo[i]); 
-  		printf("Philosopher %d is thinking\n", i + 1); 
+  		
         	
     	} 
   
