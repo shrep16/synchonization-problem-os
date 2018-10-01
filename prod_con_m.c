@@ -44,9 +44,11 @@ void *producer()
 		sem_wait(&empty);
 		pthread_mutex_lock(&s);
 		add();
-		sleep(1);
+		
 		pthread_mutex_unlock(&s);
+		sleep(1);
 		sem_post(&full);
+		sleep(1);
 	}
 }
 
@@ -58,9 +60,11 @@ void *consumer()
 		sem_wait(&full);
 		pthread_mutex_lock(&s);
 		delete();
-		sleep(1);
+		
 		pthread_mutex_unlock(&s);
+		sleep(1);
 		sem_post(&empty);
+		sleep(1);
 	}
 }
 
