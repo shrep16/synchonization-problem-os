@@ -26,8 +26,9 @@ void test(int i)
         sleep(1); 
   
         printf("Philosopher %d takes fork %d and %d\n", i + 1, LEFT + 1, RIGHT + 1); 
-        printf("Philosopher %d is  eating\n", i + 1); 
+        
         sem_post(&S[i]); 
+	sleep(1);
     } 
 } 
   
@@ -43,9 +44,10 @@ void take_fork(int i)
     test(i); 
   
     sem_post(&mutex); 
+    sleep(1); 
     sem_wait(&S[i]); 
   
-    sleep(1); 
+    
 } 
   
  
@@ -61,7 +63,8 @@ void put_fork(int i)
     test(LEFT); 
     test(RIGHT); 
   
-    sem_post(&mutex); 
+    sem_post(&mutex);
+    sleep(1); 
 } 
   
 void* philospher(void* num) 
@@ -72,7 +75,7 @@ void* philospher(void* num)
         int* i = num;
  
         take_fork(*i);
-	sleep(1);  
+	printf("%d philosopher is eating \n",(*i)+1);
         put_fork(*i); 
     } 
 } 
