@@ -26,7 +26,9 @@ void *reader(void *j)
 		rc--;
 		if(rc==0)
 		sem_post(&db);
+		sleep(1);
 		pthread_mutex_unlock(&mutex);
+		sleep(1);
 	}
 }
 
@@ -39,6 +41,7 @@ void *writer()
 		
 		printf("WRITER !\n");
 		sem_post(&db);
+		sleep(1);
 		
 	}
 
