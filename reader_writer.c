@@ -1,4 +1,5 @@
 /* reader writer using semaphore */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<pthread.h>
@@ -26,7 +27,9 @@ void *reader(void *j)
 		rc--;
 		if(rc==0)
 		sem_post(&db);
+		sleep(1);
 		sem_post(&mutex);
+		sleep(1);
 	}
 }
 
@@ -39,6 +42,7 @@ void *writer()
 		
 		printf("WRITER !\n");
 		sem_post(&db);
+		sleep(1);
 		
 	}
 
